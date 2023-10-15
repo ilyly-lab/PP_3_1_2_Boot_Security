@@ -1,0 +1,78 @@
+<!DOCTYPE html> <html lang="en">
+<head> <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS --> <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- JS --> <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head> <body> <div class="container">
+    <div> <form th:action="@{save_edit}" th:object="${user}" method="post">
+        <input type="hidden" name="id" th:value="${user.id}">
+        <fieldset> <legend>Данные пользователя</legend>
+
+            <div class="form-group">
+                <label for="username">Логин</label>
+                <input type="text"
+                       class="form-control"
+                       name="username"
+                       id="username"
+                       th:value="${user.username}">
+                <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="${username}">Логин содержит ошибки</div>
+            </div>
+            <div class="form-group">
+                <label for="surname">Логин</label>
+                <input type="text"
+                       class="form-control"
+                       name="surname"
+                       id="surname"
+                       th:value="${user.surname}">
+            </div>
+            <div class="form-group">
+                <label for="email">email</label>
+                <input type="text"
+                       class="form-control"
+                       name="email"
+                       id="email"
+                       th:value="${user.email}">
+            </div>
+            <div class="form-group">
+                <label for="password">Пароль</label>
+                <input type="password" class="form-control"
+                       name="password"
+                       id="password"
+                       th:value="${user.password}"> </div>
+            <div class="form-group">
+                <div class="form-check">
+                <input class="form-check-input"
+                       type="checkbox"
+                       name="roleAdmin"
+                       id="roleAdmin"
+                       th:checked="${ROLE_ADMIN}"
+                       th:value="ROLE_ADMIN">
+                <label class="form-check-label"
+                       for="roleAdmin">Admin</label> </div>
+                <div class="form-check">
+                    <input class="form-check-input"
+                           type="checkbox"
+                           name="roleUser"
+                           id="roleUser"
+                           th:checked="${ROLE_USER}"
+                           th:value="ROLE_USER">
+                    <label class="form-check-label"
+                           for="roleUser">User</label>
+                </div>
+            </div>
+        </fieldset>
+        <button type="submit" class="btn btn-primary">Изменить данные</button>
+    </form>
+        <br>
+        <form th:action="@{/admin}">
+            <button type="submit"
+                    class="btn btn-secondary">Назад к списку пользователей</button>
+    </form>
+    </div>
+    <form th:action="@{/logout}" th:method="POST">
+    <input type="submit" class="btn btn-danger mt-3" value="Logout"> </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD admin</title>
+
+    <!-- Подключение Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+    <h2>CRUD admin</h2>
+    <br>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="use : ${users}">
+            <td th:text="${use.username}"></td>
+            <td>
+                <div th:each="role: ${use.getRoleList()}">
+                    <span th:if="${role.getRole() == 'ROLE_USER'}" class="badge badge-primary">USER</span>
+                    <span th:if="${role.getRole() == 'ROLE_ADMIN'}" class="badge badge-danger">ADMIN</span>
+                    <br>
+                </div>
+            </td>
+            <td>
+                <a th:href="@{/updateInfo(empId=${use.id})}" class="btn btn-warning">Update</a>
+                <a th:href="@{/deleteUser(empId=${use.id})}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <a th:href="@{/addNewUser}" class="btn btn-success">Add</a>
+</div>
+
+<!-- Подключение Bootstrap, jQuery и Popper.js JavaScript -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+<form th:action="@{/logout}" th:method="POST">
+    <input type="submit" class="btn btn-secondary mt-3" value="Logout">
+</form>
+</html>
